@@ -1,15 +1,17 @@
 import './App.css';
 const redux = require("redux")
 
-function increment() {
+function increment(amount) {
   return {
-      type: "INCREMENT"
+      type: "INCREMENT",
+      payload: amount
   }
 }
 
-function decrement() {
+function decrement(amount) {
   return {
-      type: "DECREMENT"
+      type: "DECREMENT",
+      payload: amount
   }
 }
 
@@ -25,16 +27,24 @@ function halve() {
   }
 }
 
-function reducer(state = 0, action) {
+function reducer(state = {count:0}, action) {
   switch(action.type) {
       case "INCREMENT":
-          return state + 1
+          return {
+            count:state.count + action.payload
+          }
       case "DECREMENT":
-          return state - 1
+          return {
+            count: state.count - action.payload
+          }
       case "DOUBLE":
-          return state * 2
+        return {
+          count: state.count * 2
+        }
       case "HALVE":
-          return Math.round(state / 2)
+          return {
+            count: Math.round(state / 2)
+          }
       default:
           return state
   }
@@ -48,12 +58,13 @@ store.subscribe(()=>{
   console.log(111,store.getState()) 
 })
 
-store.dispatch({type:"INCREMENT"})
-store.dispatch({type:"INCREMENT"})
-store.dispatch({type:"DOUBLE"})
+// if added paylod didn't working
+// store.dispatch({type:"INCREMENT"})
+// store.dispatch({type:"INCREMENT"})
+// store.dispatch({type:"DOUBLE"})
 // or we can call function
-store.dispatch(increment())
-store.dispatch(decrement())
+store.dispatch(increment(99))
+store.dispatch(decrement(5))
 store.dispatch({type:"CHKA"})
 
 
