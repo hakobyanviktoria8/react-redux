@@ -140,7 +140,9 @@ store.dispatch(removeThings("asd"))
 function App() {
   return (
     <div className="App">
-      Redux
+      <h1>Redux</h1> 
+      <p> store getState count is a {store.getState().count}</p>
+      {console.log("store is a __________",store.getState())}
     </div>
   );
 }
