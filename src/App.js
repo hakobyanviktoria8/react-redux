@@ -44,7 +44,9 @@ const store = redux.createStore(reducer)
 console.log(store);
 // dispatch / getState / replaceReducer / subscribe
 
-
+store.subscribe(()=>{
+  console.log(111,store.getState()) 
+})
 
 
 
