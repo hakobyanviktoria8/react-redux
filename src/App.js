@@ -48,9 +48,13 @@ store.subscribe(()=>{
   console.log(111,store.getState()) 
 })
 
-
-
-
+store.dispatch({type:"INCREMENT"})
+store.dispatch({type:"INCREMENT"})
+store.dispatch({type:"DOUBLE"})
+// or we can call function
+store.dispatch(increment())
+store.dispatch(decrement())
+store.dispatch({type:"CHKA"})
 
 
 
