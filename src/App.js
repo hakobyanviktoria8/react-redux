@@ -29,10 +29,39 @@ const redux = require("redux")
 function changeState(num = 1){
   return{
     type:"CHANGE_STATE",
-    payload:num
+    payload: num
   }
 }
-function reducer(state = {count:0}, action) {
+
+function addFavoriteThings (arr=[4,5,6]){
+  return {
+    type : "FAVORITE_THINGS",
+    payload: arr
+  }
+}
+
+const initialState = {
+  count: 0,
+  favoriteThings: [1,2,3]
+}
+
+function reducer(state = initialState, action) {
+  switch(action.type) {
+    case "CHANGE_STATE":
+      return {
+        ...state,
+        count : state.count+action.payload
+      }
+    case "FAVORITE_THINGS":
+      return {
+        ...state,
+        favoriteThings:[state.count, ...state.favoriteThings, "asd", ...action.payload]
+      }
+    default:
+      return state
+  }
+
+
   // switch(action.type) {
   //     case "INCREMENT":
   //         return {
@@ -53,9 +82,7 @@ function reducer(state = {count:0}, action) {
   //     default:
   //         return state
   // }
-  if(action.type ==="CHANGE_STATE"){
-    return {count : state.count+action.payload}
-  }
+  
 }
 
 const store = redux.createStore(reducer)
@@ -76,10 +103,25 @@ store.subscribe(()=>{
 // store.dispatch({type:"CHKA"})
 
 
+// store.dispatch(changeState(9))
+// store.dispatch(changeState(-909))
+// store.dispatch(changeState(9909))
+// store.dispatch(changeState())  //give default value
 store.dispatch(changeState(9))
-store.dispatch(changeState(-909))
-store.dispatch(changeState(9909))
-store.dispatch(changeState())  //give default value
+
+// work favorite action 
+store.dispatch(addFavoriteThings())
+
+
+
+
+
+
+
+
+
+
+
 
 
 
