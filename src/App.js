@@ -40,12 +40,25 @@ function reducer(state = 0, action) {
   }
 }
 
+const store = redux.createStore(reducer)
+console.log(store);
+// dispatch / getState / replaceReducer / subscribe
+
+
+
+
+
+
+
+
+
+
 
 
 function App() {
   return (
     <div className="App">
-
+      Redux
     </div>
   );
 }
