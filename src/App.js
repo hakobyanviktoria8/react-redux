@@ -40,6 +40,13 @@ function addFavoriteThings (arr=[4,5,6]){
   }
 }
 
+function removeThings(thing){
+  return {
+    type: "REMOVE",
+    payload: thing
+  }
+}
+
 const initialState = {
   count: 0,
   favoriteThings: [1,2,3]
@@ -55,8 +62,13 @@ function reducer(state = initialState, action) {
     case "FAVORITE_THINGS":
       return {
         ...state,
-        favoriteThings:[state.count, ...state.favoriteThings, "asd", ...action.payload]
+        favoriteThings: [...state.favoriteThings, "asd", ...action.payload]
       }
+      case "REMOVE":
+        return {
+          ...state, 
+          favoriteThings : state.favoriteThings.filter(x=>x!==action.payload)
+        }
     default:
       return state
   }
@@ -111,7 +123,7 @@ store.dispatch(changeState(9))
 
 // work favorite action 
 store.dispatch(addFavoriteThings())
-
+store.dispatch(removeThings("asd"))
 
 
 
