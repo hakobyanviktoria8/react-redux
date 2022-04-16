@@ -1,52 +1,6 @@
 import './App.css';
 const redux = require("redux")
 
-// function increment(amount) {
-//   return {
-//       type: "INCREMENT",
-//       payload: amount
-//   }
-// }
-
-// function decrement(amount) {
-//   return {
-//       type: "DECREMENT",
-//       payload: amount
-//   }
-// }
-// function double() {
-//   return {
-//     type: "DOUBLE"
-//   }
-// }
-
-// function halve() {
-//   return {
-//     type: "HALVE"
-//   }
-// }
-
-function changeState(num = 1){
-  return{
-    type:"CHANGE_STATE",
-    payload: num
-  }
-}
-
-function addFavoriteThings (arr=[4,5,6]){
-  return {
-    type : "FAVORITE_THINGS",
-    payload: arr
-  }
-}
-
-function removeThings(thing){
-  return {
-    type: "REMOVE",
-    payload: thing
-  }
-}
-
 function handleYouTubeTitle(title, view, votes){
   return{
       type:"YOUTOBE_TITLE",
@@ -73,16 +27,8 @@ const initialState = {
 
 function reducer(state = initialState, action) {
   switch(action.type) {
-    case "CHANGE_STATE":
-      return {
-        ...state,
-        count : state.count+action.payload
-      }
-    case "FAVORITE_THINGS":
-      return {
-        ...state,
-        favoriteThings: [...state.favoriteThings, "asd", ...action.payload]
-      }
+   
+  
     case "YOUTOBE_TITLE":
           return {
               ...state,
@@ -97,11 +43,7 @@ function reducer(state = initialState, action) {
                 }
               }
           }
-    case "REMOVE":
-      return {
-        ...state, 
-        favoriteThings : state.favoriteThings.filter(x=>x!==action.payload)
-      }
+   
     default:
       return state
   }
