@@ -47,9 +47,28 @@ function removeThings(thing){
   }
 }
 
+function handleYouTubeTitle(title, view, votes){
+  return{
+      type:"YOUTOBE_TITLE",
+      payload: {
+       title, 
+       view,
+       votes
+      }
+  }
+}
+
 const initialState = {
   count: 0,
-  favoriteThings: [1,2,3]
+  favoriteThings: [1,2,3],
+  youtubeVideo: {
+    title: "",
+    view: 0,
+    votes: {
+      up: 0,
+      down: 0
+    }
+  }
 }
 
 function reducer(state = initialState, action) {
@@ -64,11 +83,25 @@ function reducer(state = initialState, action) {
         ...state,
         favoriteThings: [...state.favoriteThings, "asd", ...action.payload]
       }
-      case "REMOVE":
-        return {
-          ...state, 
-          favoriteThings : state.favoriteThings.filter(x=>x!==action.payload)
-        }
+    case "YOUTOBE_TITLE":
+          return {
+              ...state,
+              youtubeVideo: {
+                ...state.youtubeVideo,
+                title: action.payload.title,
+                view: action.payload.view,
+                votes: {
+                  ...state.youtubeVideo.votes,
+                  // up: action.payload.votes.up //or *****
+                  up:  state.youtubeVideo.votes.up + 1
+                }
+              }
+          }
+    case "REMOVE":
+      return {
+        ...state, 
+        favoriteThings : state.favoriteThings.filter(x=>x!==action.payload)
+      }
     default:
       return state
   }
@@ -124,7 +157,8 @@ store.dispatch(changeState(9))
 // work favorite action 
 store.dispatch(addFavoriteThings())
 store.dispatch(removeThings("asd"))
-
+// store.dispatch(handleYouTubeTitle("One",10, {up:1}))  //see *****
+store.dispatch(handleYouTubeTitle("One",10))
 
 
 
@@ -142,7 +176,7 @@ function App() {
     <div className="App">
       <h1>Redux</h1> 
       <p> store getState count is a {store.getState().count}</p>
-      {console.log("store is a __________",store.getState())}
+      {/* {console.log("store is a __________",store.getState())} */}
     </div>
   );
 }
