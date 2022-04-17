@@ -57,7 +57,7 @@ export default function youTubeVideoReducer(youTubeVideo=initialState, action) {
                 ...youTubeVideo,
                 votes: {
                     ...youTubeVideo.votes,
-                    down: state.youTubeVideo.votes.down + 1
+                    down: youTubeVideo.votes.down + 1
                 }
             }
         default:
