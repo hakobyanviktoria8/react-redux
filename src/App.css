@@ -1,5 +1,11 @@
 .App {
   text-align: center;
 }
-
-
+.countWrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.countWrapper p{
+  margin: 10px;
+}
