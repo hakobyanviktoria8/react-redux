@@ -33,7 +33,7 @@ function App() {
     <div className="App">
       <h1>Redux</h1> 
       <p> store getState count is a {store.getState().count}</p>
-      {console.log(store.getState())}
+      {console.log("store.getStat ",store.getState())}
     </div>
   );
 }
