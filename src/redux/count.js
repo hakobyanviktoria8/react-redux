@@ -32,14 +32,14 @@ export default function countReducer(count = 0, action) {
     }
 }
 
-const store = redux.createStore(countReducer)
-console.log("store",store); //store has dispatch, getState, replaceReducer, subscribe
+// const store = redux.createStore(countReducer)
+// console.log("store",store); //store has dispatch, getState, replaceReducer, subscribe
 
-store.subscribe(()=>{
-    console.log("store.getState is Count ",store.getState())
-})
+// store.subscribe(()=>{
+//     console.log("store.getState is Count ",store.getState())
+// })
 
-store.dispatch(increment()) //1
-store.dispatch(increment())  //2
-store.dispatch(decrement()) //1
-store.dispatch(changeCount(11)) //1+11
+// store.dispatch(increment()) //1
+// store.dispatch(increment())  //2
+// store.dispatch(decrement()) //1
+// store.dispatch(changeCount(11)) //1+11
