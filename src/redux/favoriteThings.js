@@ -14,10 +14,13 @@ export function removeFavoriteThing(thing) {
 
 export default function favoriteThingsReducer(favoriteThings = [], action) {
     switch(action.type) {
-         case "ADD_FAVORITE_THING":
-            return  [...favoriteThings, action.payload]
+        case "ADD_FAVORITE_THING":
+            return  [
+                ...favoriteThings, 
+                action.payload
+            ]
         case "REMOVE_FAVORITE_THING": {     
-            return favoriteThings.filter(x=>x!==action.payload)
+            return favoriteThings.filter(x => x !== action.payload)
         }
         default:
             return favoriteThings
