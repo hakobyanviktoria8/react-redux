@@ -25,10 +25,31 @@ export function addFavoriteThing(things){
         payload: things
     }
 }
+export function removeFavoriteThing(thing){
+    return {
+        type:"REMOVE_FAVORITE_THING",
+        payload:thing
+    }
+}
+
+function youtubeVideoAction(title) {
+    return {
+        type: "YOUTUBE_VIDEO_ACTION",
+        payload: title
+    }
+}
 
 const initialState = {
     count: 0,
-    favoriteThings: ["first"]
+    favoriteThings: ["first"],
+    youtubeVideo: {
+        title: "",
+        viewCount: 0,
+        votes: {
+            up: 0,
+            down: 0
+        }
+    }
 }
 
 export default function countReducer(state = initialState, action) {
@@ -56,8 +77,26 @@ export default function countReducer(state = initialState, action) {
                     action.payload
                 ]
             }
+        case "REMOVE_FAVORITE_THING":
+            return {
+                ...state,
+                favoriteThings: state.favoriteThings.filter(x=>x!==action.payload)
+            }
+        case  "YOUTUBE_VIDEO_ACTION": {
+            return {
+                ...state,
+                youtubeVideo:  {
+                    ...state.youtubeVideo,
+                    title: action.payload,
+                    votes: {
+                        ...state.youtubeVideo.votes,
+                        up: state.youtubeVideo.votes.up + 1
+                    }
+                }
+            }
+        }
         default:
-            return state.count
+            return state
     }
 }
 
@@ -73,3 +112,6 @@ store.dispatch(increment())  //2
 store.dispatch(decrement()) //1
 store.dispatch(changeCount(11)) //1+11
 store.dispatch(addFavoriteThing("secund"))
+store.dispatch(addFavoriteThing("third"))
+store.dispatch(removeFavoriteThing("third"))
+store.dispatch(youtubeVideoAction("Hello"))
