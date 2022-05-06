@@ -19,27 +19,57 @@ export function decrement() {
     }
 }
 
-export default function countReducer(count = 0, action) {
-    switch(action.type) {
-        case "CHANGE_COUNT":
-            return count + action.payload
-        case "INCREMENT":
-            return count + 1
-        case "DECREMENT":
-            return count - 1
-        default:
-            return count
+export function addFavoriteThing(things){
+    return {
+        type: "ADD_FAVORITE_THINGS",
+        payload: things
     }
 }
 
-// const store = redux.createStore(countReducer)
-// console.log("store",store); //store has dispatch, getState, replaceReducer, subscribe
+const initialState = {
+    count: 0,
+    favoriteThings: ["first"]
+}
 
-// store.subscribe(()=>{
-//     console.log("store.getState is Count ",store.getState())
-// })
+export default function countReducer(state = initialState, action) {
+    switch(action.type) {
+        case "CHANGE_COUNT":
+            return {
+                ...state,
+                count : state.count + action.payload
+            }
+        case "INCREMENT":
+            return {
+                ...state,
+                count : state.count + 1
+            }
+        case "DECREMENT":
+            return {
+                ...state,
+                count : state.count - 1
+            }
+        case "ADD_FAVORITE_THINGS":
+            return {
+                ...state,
+                favoriteThings: [
+                    ...state.favoriteThings,
+                    action.payload
+                ]
+            }
+        default:
+            return state.count
+    }
+}
 
-// store.dispatch(increment()) //1
-// store.dispatch(increment())  //2
-// store.dispatch(decrement()) //1
-// store.dispatch(changeCount(11)) //1+11
+const store = redux.createStore(countReducer)
+console.log("store",store); //store has dispatch, getState, replaceReducer, subscribe
+
+store.subscribe(()=>{
+    console.log("store.getState is Count ",store.getState())
+})
+
+store.dispatch(increment()) //1
+store.dispatch(increment())  //2
+store.dispatch(decrement()) //1
+store.dispatch(changeCount(11)) //1+11
+store.dispatch(addFavoriteThing("secund"))
