@@ -6,6 +6,7 @@
   align-items: center;
   justify-content: center;
 }
-.countWrapper p{
+.countWrapper h3{
   margin: 10px;
+  font-size: 2rem;
 }
