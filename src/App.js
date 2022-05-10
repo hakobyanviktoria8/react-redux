@@ -1,5 +1,5 @@
 import './App.css';
-import {changeCount, increment, decrement} from "./redux/count"
+import {increment, decrement} from "./redux/count"
 import {addFavoriteThing, removeFavoriteThing} from './redux/favoriteThings';
 import { deleteUser, setUser } from './redux/user';
 import { incrementViewCount, setYouTubeTitle, upvoteVideo } from './redux/youTubeVideo';
@@ -13,13 +13,15 @@ import { useState } from 'react';
 
 function App(props) {  
   const count = useSelector(state => state.count)
+  const favoriteThingsArr = useSelector(state => state.favoriteThings)
   const dispatch = useDispatch()
   const[favoriteThing, setFavoriteThing]=useState("")
 
   const handleSubmit = (e)=>{
     e.preventDefault();
     console.log(e.target.value)
-    props.addFavoriteThing(favoriteThing)
+    dispatch(addFavoriteThing(favoriteThing))
+    setFavoriteThing("")
   }
 
   return (
@@ -36,17 +38,20 @@ function App(props) {
       <div>
         <h2>Add Favorite Things favoriteThings.js file</h2>
         <form onSubmit={handleSubmit}>
-          <input type="text" placeholder='Add Favorite Thing' onChange={e=>setFavoriteThing(e.target.value)}/>
+          <input type="text" value={favoriteThing} placeholder='Add Favorite Thing' onChange={e=>setFavoriteThing(e.target.value)}/>
           <input type="submit"/>
         </form>
         <div>
           {
-            props.favoriteThings?.map((item, idx)=>
-              <p key={idx}>{item}</p>
+            favoriteThingsArr?.map((item, idx)=>
+              <p key={idx}>{item}
+                <button onClick={()=>dispatch(removeFavoriteThing(favoriteThingsArr[idx]))}>Del</button>
+              </p>
             )
           }
         </div>
       </div>
+      <hr/>
     </div>
   );
 }
