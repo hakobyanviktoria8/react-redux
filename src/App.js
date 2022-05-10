@@ -1,25 +1,27 @@
+import { useState, useEffect } from 'react';
+import {useSelector, useDispatch} from "react-redux"
 import './App.css';
 import {increment, decrement} from "./redux/count"
 import {addFavoriteThing, removeFavoriteThing} from './redux/favoriteThings';
+import { incrementViewCount, setYouTubeTitle } from './redux/youTubeVideo';
 import { deleteUser, setUser } from './redux/user';
-import { incrementViewCount, setYouTubeTitle, upvoteVideo } from './redux/youTubeVideo';
-// store import enq anum Redux indexi root Reduceric
-import store from './redux';
-import {useSelector, useDispatch} from "react-redux"
 
-// HOCa connect(What parts of STATE do you want, What actions to dispatch)(Component)
-import { connect } from 'react-redux';
-import { useState } from 'react';
 
-function App(props) {  
+function App() {  
+  const[favoriteThing, setFavoriteThing]=useState("")
   const count = useSelector(state => state.count)
   const favoriteThingsArr = useSelector(state => state.favoriteThings)
+  const youTubeVideo = useSelector(state => state.youTubeVideo)
   const dispatch = useDispatch()
-  const[favoriteThing, setFavoriteThing]=useState("")
+
+  useEffect(() => {    
+    dispatch(setYouTubeTitle("YouTube Title Here"))
+    dispatch(incrementViewCount())
+  }, [])
+  
 
   const handleSubmit = (e)=>{
     e.preventDefault();
-    console.log(e.target.value)
     dispatch(addFavoriteThing(favoriteThing))
     setFavoriteThing("")
   }
@@ -52,24 +54,14 @@ function App(props) {
         </div>
       </div>
       <hr/>
+      <div>
+        <h2>Add youTube Video youTubeVideo.js file</h2>
+        <h3>{youTubeVideo.title}</h3>
+        <p>View Count{youTubeVideo.viewCount}</p>
+        {console.log("youTubeVideo", youTubeVideo)}
+      </div>
     </div>
   );
 }
 
-// const mapStateToProps = (state) =>{
-//   console.log(state);
-//   return {
-//     count : state.count,
-//     favoriteThings: state.favoriteThings
-//   }
-// }
-
-// const mapDispatchToProps ={
-//   increment,
-//   decrement,
-//   changeCount,
-//   addFavoriteThing,
-//   removeFavoriteThing,
-// }
-// connect(mapStateToProps, mapDispatchToProps)(App)
 export default App
