@@ -5,11 +5,15 @@ import { deleteUser, setUser } from './redux/user';
 import { incrementViewCount, setYouTubeTitle, upvoteVideo } from './redux/youTubeVideo';
 // store import enq anum Redux indexi root Reduceric
 import store from './redux';
+import {useSelector, useDispatch} from "react-redux"
+
 // HOCa connect(What parts of STATE do you want, What actions to dispatch)(Component)
 import { connect } from 'react-redux';
 import { useState } from 'react';
 
 function App(props) {  
+  const count = useSelector(state => state.count)
+  const dispatch = useDispatch()
   const[favoriteThing, setFavoriteThing]=useState("")
 
   const handleSubmit = (e)=>{
@@ -24,9 +28,9 @@ function App(props) {
       <hr/>
       <h2>Action and Reducedr count.js file</h2>
       <div className='countWrapper'>
-        <button onClick={props.decrement}>Decrement</button>
-        <h3>{props.count}</h3>
-        <button onClick={props.increment}>Increment</button>
+        <button onClick={() => dispatch(decrement())}>Decrement</button>
+        <h3>{count}</h3>
+        <button onClick={() => dispatch(increment())}>Increment</button>
       </div>
       <hr/>
       <div>
@@ -37,7 +41,7 @@ function App(props) {
         </form>
         <div>
           {
-            props.favoriteThings.map((item, idx)=>
+            props.favoriteThings?.map((item, idx)=>
               <p key={idx}>{item}</p>
             )
           }
@@ -47,20 +51,20 @@ function App(props) {
   );
 }
 
-const mapStateToProps = (state) =>{
-  console.log(state);
-  return {
-    count : state.count,
-    favoriteThings: state.favoriteThings
-  }
-}
+// const mapStateToProps = (state) =>{
+//   console.log(state);
+//   return {
+//     count : state.count,
+//     favoriteThings: state.favoriteThings
+//   }
+// }
 
-const mapDispatchToProps ={
-  increment,
-  decrement,
-  changeCount,
-  addFavoriteThing,
-  removeFavoriteThing,
-}
+// const mapDispatchToProps ={
+//   increment,
+//   decrement,
+//   changeCount,
+//   addFavoriteThing,
+//   removeFavoriteThing,
+// }
 // connect(mapStateToProps, mapDispatchToProps)(App)
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default App
