@@ -12,11 +12,18 @@ function App() {
   const count = useSelector(state => state.count)
   const favoriteThingsArr = useSelector(state => state.favoriteThings)
   const youTubeVideo = useSelector(state => state.youTubeVideo)
+  const user = useSelector(state => state.user)
   const dispatch = useDispatch()
 
   useEffect(() => {    
     dispatch(setYouTubeTitle("YouTube Title Here"))
     dispatch(incrementViewCount())
+    dispatch(setUser({
+      firstName: "Viktorya",
+      lastName: "Hakobyan",
+      id: "1",
+      email: "viki@gmail.com"
+    }))
   }, [])
   
 
@@ -58,8 +65,13 @@ function App() {
         <h2>Add youTube Video youTubeVideo.js file</h2>
         <h3>{youTubeVideo.title}</h3>
         <p>View Count{youTubeVideo.viewCount}</p>
-        {console.log("youTubeVideo", youTubeVideo)}
+        {/* {console.log("youTubeVideo", youTubeVideo)} */}
       </div>
+      <hr/>
+      <h2>Add user user.js file</h2>
+      <span>{user.id}. {user.firstName} {user.lastName}</span>
+      <p>{user.email}</p>
+      {console.log(user)}
     </div>
   );
 }
